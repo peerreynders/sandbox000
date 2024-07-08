@@ -1,0 +1,68 @@
+// file: src/styles/page/login/_shared.scss
+@use '../../setting' as s;
+@use '../../utility' as u;
+
+%login {
+	margin-block-start: 5rem;
+	@include s.at-breakpoint('md') {
+		padding-inline: 1.5rem;
+	}
+
+	@include s.at-breakpoint('lg') {
+		padding-inline: 2rem;
+	}
+	display: flex;
+	flex-direction: column;
+}
+
+%login__heading {
+	@include s.at-breakpoint('md') {
+		margin-inline: auto;
+		max-inline-size: 28rem;
+		width: 100%;
+	}
+
+	& h1 {
+		margin-block-start: 1.5rem;
+		margin-block-end: 0;
+		color: s.from-color('slate-900');
+		letter-spacing: -0.025rem;
+		line-height: 2.25rem;
+		font-weight: s.from-font-weight('bold');
+		font-size: s.from-size('500');
+		text-align: center;
+	}
+}
+
+%login__authenticate {
+	margin-block-start: 2.5rem;
+
+	@include s.at-breakpoint('md') {
+		margin-inline: auto;
+		max-inline-size: 480px;
+		width: 100%;
+	}
+
+	& a {
+		text-decoration-line: underline;
+	}
+
+	& > .c-authenticate-wrapper {
+		--flow-space: #{s.from-size('500')};
+		@include u.shadow;
+		background-color: s.from-color('white');
+		padding-block: 3rem;
+
+		@include s.at-breakpoint('md') {
+			border-radius: 0.5rem;
+			padding-inline: 3rem;
+		}
+
+		& > div {
+			margin-block-start: var(--flow-space);
+			color: s.from-color('slate-800');
+			font-size: 0.875rem;
+			line-height: s.from-line-height('tight');
+		}
+	}
+}

@@ -1,0 +1,19 @@
+// file: src/styles/page/login/index.scss
+@use './shared';
+@use './authenticate';
+
+.c-authenticate {
+	@extend %authenticate;
+}
+
+.c-login {
+	@extend %login;
+}
+
+.c-login__heading {
+	@extend %login__heading;
+}
+
+.c-login__authenticate {
+	@extend %login__authenticate;
+}

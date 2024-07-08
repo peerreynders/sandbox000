@@ -1,0 +1,97 @@
+// file: src/styles/component/_header.scss
+@use '../setting' as s;
+
+@mixin o-icon-text {
+	color: s.from-color('slate-300');
+	font-weight: s.from-font-weight('bold');
+	font-size: calc(0.75 * s.from-size('400'));
+	text-transform: uppercase;
+}
+
+.c-header {
+	padding-block: 1rem;
+	padding-inline: 2rem;
+	border-bottom-width: 1px;
+	border-color: s.from-color('slate-800');
+	background-color: s.from-color('primary');
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+
+	&__home {
+		display: block;
+		width: 33.33%;
+		line-height: s.from-line-height('pack');
+
+		& div:first-child {
+			color: s.from-color('white');
+			font-weight: s.from-font-weight('black');
+			font-size: s.from-size('500');
+			line-height: s.from-line-height('base');
+		}
+
+		& div:last-child {
+			color: s.from-color('slate-300');
+		}
+	}
+
+	&__link {
+		display: flex;
+		align-items: center;
+		gap: s.from-size('500');
+	}
+
+	&__session {
+		display: flex;
+		width: 33.33%;
+		justify-content: flex-end;
+
+		& button,
+		& a {
+			display: block;
+			text-align: center;
+		}
+
+		& button {
+			background-color: transparent;
+		}
+
+		& span {
+			display: block;
+			@include o-icon-text;
+		}
+	}
+}
+
+.c-icon-link {
+	@include o-icon-text;
+	line-height: s.from-line-height('flat');
+	text-align: center;
+
+	& img {
+		display: inline-block;
+		height: calc(2 * s.from-size('400'));
+	}
+	& span {
+		display: block;
+		margin-block-start: 0.5rem;
+	}
+}
+
+%c-session-icon {
+	$size: calc(2 * s.from-size('400'));
+	display: inline;
+	color: s.from-color('white');
+	height: $size;
+	width: $size;
+	align-self: center;
+}
+
+.c-logout-icon {
+	@extend %c-session-icon;
+}
+
+.c-login-icon {
+	@extend %c-session-icon;
+	scale: -1 1;
+}

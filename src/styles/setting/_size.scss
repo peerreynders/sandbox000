@@ -1,0 +1,12 @@
+$base-size: 1rem;
+
+$size-scale: (
+	'300': $base-size * 0.67,
+	'400': $base-size,
+	'500': $base-size * 1.5,
+);
+
+$breakpoint-target: (
+	'md': '(min-width: 640px)',
+	'lg': '(min-width: 1024px)',
+);

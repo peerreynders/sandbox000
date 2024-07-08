@@ -1,0 +1,56 @@
+@use 'sass:map';
+@use 'sass:string';
+@use 'color';
+@use 'font';
+@use 'size';
+
+@function -from-map($ref, $map-name, $key-name, $default-value, $key) {
+	$result: map.get($ref, $key);
+	@if ($result) {
+		@return $result;
+	}
+
+	@warn #{$key-name + ' "' + $key + '" not found in ' + $map-name};
+
+	@return $default-value;
+}
+
+@mixin at-breakpoint($key) {
+	$target: map.get(size.$breakpoint-target, $key);
+
+	@if $target {
+		@media #{ $target } {
+			@content;
+		}
+	} @else {
+		@warn #{ 'Breakpoint, ‘' + $key + '’ not found in `$breakpoint-target`.' };
+	}
+}
+
+@function from-color($key) {
+	@return -from-map(color.$color, '$color', 'Color', null, $key);
+}
+
+@function from-font-family($key) {
+	@return string.unquote(
+		-from-map(font.$family, '$family', 'Font family', null, $key)
+	);
+}
+
+@function from-font-weight($key) {
+	@return -from-map(font.$weight, '$weight', 'Font weight', null, $key);
+}
+
+@function from-line-height($key) {
+	@return -from-map(font.$height, '$height', 'Line height', null, $key);
+}
+
+@function from-size($key) {
+	@return -from-map(
+		size.$size-scale,
+		'$size-scale',
+		'Size',
+		size.$base-size,
+		$key
+	);
+}

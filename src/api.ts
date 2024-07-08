@@ -3,7 +3,6 @@ import { getRequestEvent, isServer } from 'solid-js/web';
 import { action, cache, redirect, revalidate } from '@solidjs/router';
 import { validateEmailFormat, validatePasswordFormat } from './lib/shame';
 import { logout as logoutFn, signin as signinFn } from './server/api';
-import { getAccountRecord } from './server/session';
 
 const NAME_ACCOUNT = 'account';
 const NAME_AUTHENTICATE = 'authenticate';
@@ -91,7 +90,8 @@ const getAccountUs = async () => {
 	const event = getRequestEvent();
 	if (!event) throw new Error('Unable to access account request');
 
-	return getAccountRecord(event);
+	const accountId = event.locals.accountId;
+	return accountId ? { accountId } : false;
 };
 
 const logoutUs = async () => {

@@ -6,9 +6,10 @@ import {
 	deleteCookie,
 	updateSession as update,
 } from 'vinxi/http';
-import type { RequestEvent } from 'solid-js/web';
 
-import type { SessionConfig, SessionData } from 'vinxi/http';
+import type { RequestEvent } from 'solid-js/web';
+import type { Session, SessionConfig, SessionData } from 'vinxi/http';
+import type { FetchEvent } from '@solidjs/start/server';
 
 type SessionRecord = SessionData<{ accountId: string }>;
 type SessionUpdate = (r: SessionRecord) => SessionRecord;
@@ -55,14 +56,17 @@ function clearSession(event: RequestEvent) {
 	);
 }
 
-async function getAccountRecord(event: RequestEvent) {
-	// Avoid creating a session is there isn't one
+const toAccountId = (session: Session<SessionRecord>) => session.data.accountId;
+
+function getAccountId(event: FetchEvent) {
+	// Avoid creating a session if there isn't one
+	// and stay synchronous …
 	const sessionCookie = getCookie(event.nativeEvent, SESSION_NAME);
-	if (!sessionCookie) return false;
+	if (!sessionCookie) return undefined;
 
 	// Session exists
-	const session = await getSession<SessionRecord>(event.nativeEvent, config);
-	return session.data;
+	// … now go async
+	return getSession<SessionRecord>(event.nativeEvent, config).then(toAccountId);
 }
 
-export { getAccountRecord, clearSession, updateSession };
+export { getAccountId, clearSession, updateSession };

@@ -19,20 +19,22 @@ function SessionControl() {
 	const isLoggedIn = () => Boolean(account());
 
 	return (
-		<Show
-			when={isLoggedIn()}
-			fallback={
-				<a href="/login">
-					<LoginIcon />
-					<span>Log in</span>
-				</a>
-			}
-		>
-			<button onClick={(_e) => logout()}>
-				<LogoutIcon />
-				<span>Log out</span>
-			</button>
-		</Show>
+		<Suspense>
+			<Show
+				when={isLoggedIn()}
+				fallback={
+					<a href="/login">
+						<LoginIcon />
+						<span>Log in</span>
+					</a>
+				}
+			>
+				<button onClick={(_e) => logout()}>
+					<LogoutIcon />
+					<span>Log out</span>
+				</button>
+			</Show>
+		</Suspense>
 	);
 }
 
@@ -40,35 +42,33 @@ function Layout(props: ParentProps) {
 	return (
 		<MetaProvider>
 			<Title>SolidStart - Basic</Title>
-			<Suspense>
-				<div class="c-header">
-					<a class="c-header__home" href="/home">
-						<div>Trellis</div>
-						<div>a SolidStart Demo</div>
-					</a>
-					<div class="c-header__link">
-						<IconLink
-							href="https://www.youtube.com/@solid_js"
-							label="Videos"
-							icon="/yt_icon_mono_dark.png"
-						/>
-						<IconLink
-							href="https://github.com/peerreynders/sandbox000"
-							label="Source"
-							icon="/github-mark-white.png"
-						/>
-						<IconLink
-							href="https://docs.solidjs.com"
-							label="Docs"
-							icon="/logo-dark.png"
-						/>
-					</div>
-					<div class="c-header__session">
-						<SessionControl />
-					</div>
+			<div class="c-header">
+				<a class="c-header__home" href="/home">
+					<div>Trellis</div>
+					<div>a SolidStart Demo</div>
+				</a>
+				<div class="c-header__link">
+					<IconLink
+						href="https://www.youtube.com/@solid_js"
+						label="Videos"
+						icon="/yt_icon_mono_dark.png"
+					/>
+					<IconLink
+						href="https://github.com/peerreynders/sandbox000"
+						label="Source"
+						icon="/github-mark-white.png"
+					/>
+					<IconLink
+						href="https://docs.solidjs.com"
+						label="Docs"
+						icon="/logo-dark.png"
+					/>
 				</div>
-				{props.children}
-			</Suspense>
+				<div class="c-header__session">
+					<SessionControl />
+				</div>
+			</div>
+			<Suspense>{props.children}</Suspense>
 		</MetaProvider>
 	);
 }

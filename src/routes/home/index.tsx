@@ -1,5 +1,5 @@
 // file: src/routes/home/index.tsx
-import { createEffect, Show } from 'solid-js';
+import { Show } from 'solid-js';
 import { createAsync, type RouteDefinition } from '@solidjs/router';
 import { Title } from '@solidjs/meta';
 import { getAccount } from '../../api';
@@ -12,7 +12,7 @@ export const route = {
 
 export default function Home() {
 	const account = createAsync(() => getAccount(), { deferStream: true });
-	createEffect(() => console.log('Home', account()));
+
 	return (
 		<main>
 			<Title>Home</Title>

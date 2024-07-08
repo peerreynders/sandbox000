@@ -6,7 +6,7 @@ import { verifyAccount, addAccount } from './repo';
 import type { RequestEvent } from 'solid-js/web';
 
 function logout(event: RequestEvent) {
-	const { user: _user, ...rest } = event.locals;
+	const { accountId: _id, ...rest } = event.locals;
 	event.locals = rest;
 	return clearSession(event);
 }
@@ -22,6 +22,7 @@ async function signin(email: string, password: string, newAccount = false) {
 	if (!event) throw Error('Unable to access signup/login request');
 
 	// Need await update otherwise response headers can't be set
+	event.locals.accountId = account.id;
 	await updateSession(event, (_data) => ({ accountId: account.id }));
 	return true;
 }

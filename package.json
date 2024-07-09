@@ -7,14 +7,19 @@
     "start": "vinxi start",
     "version": "vinxi version",
     "format": "prettier --write ./src",
-		"lint:es": "eslint ./src",
-    "lint:types": "./node_modules/.bin/tsc --noEmit"
-  },
+    "lint:es": "eslint ./src",
+    "lint:types": "./node_modules/.bin/tsc --noEmit",
+    "esb:bundle": "./node_modules/vinxi/node_modules/.bin/esbuild esb-run.ts --bundle --packages=external --platform=node --format=esm --outfile=./esb-run.mjs",
+    "esb:run": "pnpm run esb:bundle && node ./esb-run.mjs"  },
   "dependencies": {
     "@solidjs/meta": "^0.29.4",
     "@solidjs/router": "^0.13.6",
     "@solidjs/start": "^1.0.2",
+    "bcryptjs": "^2.4.3",
+    "nanoid": "^5.0.7",
+    "rxjs": "8.0.0-alpha.14",
     "solid-js": "^1.8.18",
+    "unstorage": "^1.10.2",
     "vinxi": "^0.3.12"
   },
   "engines": {

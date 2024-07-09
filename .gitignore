@@ -28,3 +28,7 @@ gitignore
 # System Files
 .DS_Store
 Thumbs.db
+
+# data on file system
+.data
+esb-run.mjs
